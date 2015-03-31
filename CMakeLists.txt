@@ -7,7 +7,7 @@
 
 # BUILD_SHARED_LIBS is a standard CMake variable, but we declare it here to
 # make it prominent in the GUI.
-option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ON)
 
 # When other libraries are using a shared version of runtime libraries,
 # Google Test also has to use one.
@@ -94,9 +94,12 @@ target_include_directories(gtest_main
 
 install(TARGETS gtest gtest_main
     EXPORT gtest-export
-    ARCHIVE DESTINATION lib)
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+)
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/gtest
-    DESTINATION include)
+    DESTINATION include
+)
 install(EXPORT gtest-export
     FILE gtest-config.cmake
     DESTINATION cmake)
