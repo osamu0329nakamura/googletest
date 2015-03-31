@@ -81,6 +81,27 @@ cxx_library(gtest "${cxx_strict}" src/gtest-all.cc)
 cxx_library(gtest_main "${cxx_strict}" src/gtest_main.cc)
 target_link_libraries(gtest_main gtest)
 
+target_include_directories(gtest
+    PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+    )
+target_include_directories(gtest_main
+    PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+    )
+
+install(TARGETS gtest gtest_main
+    EXPORT gtest-export
+    ARCHIVE DESTINATION lib)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/gtest
+    DESTINATION include)
+install(EXPORT gtest-export
+    FILE gtest-config.cmake
+    DESTINATION cmake)
+
+
 ########################################################################
 #
 # Samples on how to link user tests with gtest or gtest_main.
